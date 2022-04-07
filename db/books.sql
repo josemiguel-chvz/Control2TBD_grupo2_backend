@@ -29,7 +29,7 @@ CREATE TABLE public.books (
     sku character varying(15),
     title character varying(200),
     author character varying(200),
-    number_pages integer,
+    pages integer,
     language character varying(200)
 );
 
