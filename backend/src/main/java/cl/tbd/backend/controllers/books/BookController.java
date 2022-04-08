@@ -1,6 +1,7 @@
 package cl.tbd.backend.controllers.books;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,6 @@ public class BookController {
     @GetMapping("/books/{id}")
     public ResponseEntity<BookModel> find(@PathVariable("id") Integer book_id){
         BookModel book = bookService.find(book_id);
-        // Revisar si existe, lanzar error cuando no exista
         return ResponseEntity.ok().body(book);
     }
 

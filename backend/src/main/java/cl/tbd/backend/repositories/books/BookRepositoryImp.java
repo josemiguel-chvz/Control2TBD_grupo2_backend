@@ -1,6 +1,8 @@
 package cl.tbd.backend.repositories.books;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -32,9 +34,11 @@ public class BookRepositoryImp implements BookRepository {
         }     
     }
 
+
     @Override
     public BookModel find(Integer book_id) {
-        final String query =  "SELECT id, sku, title, author, pages, language, created_at, updated_at, deleted_at "+
+        final String query =  "SELECT id, sku, title, author, pages," +
+                              "language, created_at, updated_at, deleted_at "+
                               "FROM books "+
                               "WHERE id = :book_id";
 
@@ -47,7 +51,8 @@ public class BookRepositoryImp implements BookRepository {
 
     @Override
     public List<BookModel> findAll() {
-        final String query = "SELECT id, sku, title, author, pages, language, created_at, updated_at, deleted_at " +
+        final String query = "SELECT id, sku, title, author, pages," +
+                             "language, created_at, updated_at, deleted_at " +
                              "FROM books";
 
         try(Connection conn = sql2o.open()) {
