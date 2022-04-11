@@ -1,14 +1,10 @@
 package cl.tbd.backend.services.books;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
-
 import cl.tbd.backend.models.books.BookModel;
 import cl.tbd.backend.repositories.books.BookRepository;
-
 import cl.tbd.backend.exceptions.NotFoundException;
-
 
 @Service
 public class BookService {
@@ -40,6 +36,7 @@ public class BookService {
         BookModel book = bookRepository.find(book_id);
         // libro existe
         if (book != null) {
+            // Si algún  parametro viene como null, se deja el valor anterior
             if (updated_book_data.getSku() == null) {
                 updated_book_data.setSku(book.getSku());
             }
