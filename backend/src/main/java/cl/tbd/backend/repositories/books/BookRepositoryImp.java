@@ -69,16 +69,31 @@ public class BookRepositoryImp implements BookRepository {
         }
     }
 
-@Override
-public List<BookModel> findAll() {
+    @Override
+    public List<BookModel> findAll() {
         final String query = "SELECT id, sku, title, author, pages," +
-                             "language, created_at, updated_at, deleted_at, is_deleted " +
-                             "FROM books " +
-                             "WHERE is_deleted = False";
+                                "language, created_at, updated_at, deleted_at, is_deleted " +
+                                "FROM books " +
+                                "WHERE is_deleted = False";
 
         try(Connection conn = sql2o.open()) {
             return conn.createQuery(query)
                         .executeAndFetch(BookModel.class);
         }
     }
+
+    @Override
+    public Integer delete(Integer book_id) {
+        final String query =  "UPDATE books SET is_deleted = true "+
+                              "WHERE id = :book_id";
+
+        try(Connection conn = sql2o.open()) {
+            return (int) conn.createQuery(query)
+                            .addParameter("book_id", book_id)
+                            .executeUpdate().getKey();
+        }   
+    }
+
+    
 }
+

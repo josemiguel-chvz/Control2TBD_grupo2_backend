@@ -8,4 +8,5 @@ public interface BookRepository {
     public BookModel find(Integer book_id);
     public Integer update(Integer book_id, BookModel updated_book_data);
     public List<BookModel> findAll();
+    public Integer delete(Integer book_id);
 }

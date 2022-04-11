@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,10 +55,13 @@ public class BookController {
 
 
     // // Delete Book
-    // @DeleteMapping("/books/{id}")
-    // public ResponseEntity<HttpStatus> delete(@PathVariable("id") Integer book_id){
-    //     return ResponseEntity.noContent().build();
-    // }
+    @DeleteMapping("/books/{id}")
+    public ResponseEntity<BookModel> deleteTEntity(@PathVariable("id") Integer book_id) {
+        bookService.delete(book_id);
+        return ResponseEntity.noContent().build();
+        
+      }
+    
 
     // Find All Books
     @GetMapping("/books")

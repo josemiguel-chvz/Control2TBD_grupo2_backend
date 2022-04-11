@@ -74,4 +74,15 @@ public class BookService {
         return dogs;
     }
 
+    public BookModel delete(Integer book_id) {
+        BookModel book = bookRepository.find(book_id);
+        if (book != null) {
+            Integer deleted_book_id = bookRepository.delete(book_id);
+            BookModel deleted_book = bookRepository.find(deleted_book_id);
+            return deleted_book;
+        } else {
+            throw new NotFoundException("El libro indicado no existe");
+        }
+    }
+
 }
