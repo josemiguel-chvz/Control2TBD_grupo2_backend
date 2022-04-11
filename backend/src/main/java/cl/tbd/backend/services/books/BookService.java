@@ -2,8 +2,6 @@ package cl.tbd.backend.services.books;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import cl.tbd.backend.models.books.BookModel;
@@ -33,6 +31,39 @@ public class BookService {
 
         if (book != null) {
             return book;
+        } else {
+            throw new NotFoundException("El libro indicado no existe");
+        }
+    }
+
+    public BookModel update(Integer book_id, BookModel updated_book_data) {
+        BookModel book = bookRepository.find(book_id);
+        // libro existe
+        if (book != null) {
+            if (updated_book_data.getSku() == null) {
+                updated_book_data.setSku(book.getSku());
+            }
+
+            if (updated_book_data.getTitle() == null) {
+                updated_book_data.setTitle(book.getTitle());
+            }
+
+            if (updated_book_data.getAuthor() == null) {
+                updated_book_data.setAuthor(book.getAuthor());
+            }
+        
+            if (updated_book_data.getPages() == null) {
+                updated_book_data.setPages(book.getPages());
+            }
+
+            if (updated_book_data.getLanguage() == null) {
+                updated_book_data.setLanguage(book.getLanguage());
+            }
+
+            Integer updated_book_id = bookRepository.update(book_id, updated_book_data);
+            BookModel updated_book = bookRepository.find(updated_book_id);
+            return updated_book;
+            
         } else {
             throw new NotFoundException("El libro indicado no existe");
         }

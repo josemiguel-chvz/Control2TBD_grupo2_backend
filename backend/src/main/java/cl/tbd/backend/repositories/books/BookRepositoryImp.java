@@ -3,6 +3,7 @@ package cl.tbd.backend.repositories.books;
 import java.util.List;
 import java.util.Optional;
 
+import org.postgresql.translation.messages_bg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -40,7 +41,8 @@ public class BookRepositoryImp implements BookRepository {
         final String query =  "SELECT id, sku, title, author, pages," +
                               "language, created_at, updated_at, deleted_at, is_deleted "+
                               "FROM books "+
-                              "WHERE id = :book_id";
+                              "WHERE id = :book_id "+
+                              "AND is_deleted = False";
 
         try(Connection conn = sql2o.open()){
             return conn.createQuery(query)
@@ -50,10 +52,32 @@ public class BookRepositoryImp implements BookRepository {
     }
 
     @Override
-    public List<BookModel> findAll() {
+    public Integer update(Integer book_id, BookModel updated_book_data) {
+       final String query = "UPDATE books SET " +
+                            "sku = :sku, title = :title, author = :author, " +
+                            "pages = :pages, language = :language, " +
+                            "updated_at = now() " +
+                            "WHERE id = :book_id";
+        
+        try(Connection conn = sql2o.open()){
+            return (int) conn.createQuery(query)
+                        .addParameter("sku", updated_book_data.getSku())
+                        .addParameter("title", updated_book_data.getTitle())
+                        .addParameter("author", updated_book_data.getAuthor())
+                        .addParameter("pages", updated_book_data.getPages())
+                        .addParameter("language", updated_book_data.getLanguage())
+                        .addParameter("book_id", book_id)
+                        .executeUpdate()
+                        .getKey();
+        }
+    }
+
+@Override
+public List<BookModel> findAll() {
         final String query = "SELECT id, sku, title, author, pages," +
                              "language, created_at, updated_at, deleted_at, is_deleted " +
-                             "FROM books";
+                             "FROM books " +
+                             "WHERE is_deleted = False";
 
         try(Connection conn = sql2o.open()) {
             return conn.createQuery(query)

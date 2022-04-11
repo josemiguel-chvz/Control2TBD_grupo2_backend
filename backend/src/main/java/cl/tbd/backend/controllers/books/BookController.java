@@ -1,10 +1,10 @@
 package cl.tbd.backend.controllers.books;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +44,20 @@ public class BookController {
         BookModel book = bookService.find(book_id);
         return ResponseEntity.ok().body(book);
     }
+
+    // Update Book
+    @PutMapping("/books/{id}")
+    public ResponseEntity<BookModel> update(@PathVariable("id") Integer book_id, @RequestBody BookModel updated_book) {
+        BookModel book = bookService.update(book_id, updated_book);
+        return ResponseEntity.ok().body(book);
+    }
+
+
+    // // Delete Book
+    // @DeleteMapping("/books/{id}")
+    // public ResponseEntity<HttpStatus> delete(@PathVariable("id") Integer book_id){
+    //     return ResponseEntity.noContent().build();
+    // }
 
     // Find All Books
     @GetMapping("/books")
