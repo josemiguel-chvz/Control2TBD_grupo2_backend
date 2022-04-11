@@ -18,8 +18,8 @@ public class BookRepositoryImp implements BookRepository {
 
     @Override
     public Integer create(BookModel new_book) {
-        final String query =  "INSERT INTO books(sku, title, author, pages, language, created_at) " +
-                              "VALUES(:sku, :title, :author, :pages, :language, now());";
+        final String query =  "INSERT INTO books(sku, title, author, pages, language, is_deleted, created_at) " +
+                              "VALUES(:sku, :title, :author, :pages, :language, False, now());";
 
         // Chequear si sku ya existe?
         try(Connection conn = sql2o.open()){
@@ -38,7 +38,7 @@ public class BookRepositoryImp implements BookRepository {
     @Override
     public BookModel find(Integer book_id) {
         final String query =  "SELECT id, sku, title, author, pages," +
-                              "language, created_at, updated_at, deleted_at "+
+                              "language, created_at, updated_at, deleted_at, is_deleted "+
                               "FROM books "+
                               "WHERE id = :book_id";
 
@@ -52,7 +52,7 @@ public class BookRepositoryImp implements BookRepository {
     @Override
     public List<BookModel> findAll() {
         final String query = "SELECT id, sku, title, author, pages," +
-                             "language, created_at, updated_at, deleted_at " +
+                             "language, created_at, updated_at, deleted_at, is_deleted " +
                              "FROM books";
 
         try(Connection conn = sql2o.open()) {
