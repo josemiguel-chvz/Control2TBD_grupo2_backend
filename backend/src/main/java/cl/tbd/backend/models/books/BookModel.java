@@ -10,6 +10,7 @@ public class BookModel {
     private String created_at;
     private String updated_at;
     private String deleted_at;
+    private Boolean is_deleted;
 
     public Integer getId() {
         return id;
@@ -79,6 +80,14 @@ public class BookModel {
 
     public void setDeleted_at(String deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public Boolean getIs_deleted() {
+        return is_deleted;
+    }
+
+    public void setIs_deleted(Boolean is_deleted) {
+        this.is_deleted = is_deleted;
     }
 
 }
