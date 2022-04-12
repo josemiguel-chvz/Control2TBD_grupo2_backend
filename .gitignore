@@ -36,4 +36,4 @@ out/
 .vscode/
 .DS_Store
 ### DB Setting
-/backend/src/main/java/cl/tbd/backend/repositories/DatabaseContext.java
+backend/src/main/java/cl/tbd/backend/repositories/DatabaseContext.java
