@@ -26,11 +26,15 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.books (
     id integer NOT NULL,
-    sku character varying(15),
-    title character varying(200),
-    author character varying(200),
-    pages integer,
-    language character varying(200)
+    sku character varying(10),
+    title character varying(200) NOT NULL,
+    author character varying(200) NOT NULL,
+    pages integer NOT NULL,
+    language character varying(100) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone,
+    deleted_at timestamp without time zone,
+    is_deleted boolean NOT NULL
 );
 
 
@@ -69,7 +73,11 @@ ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_
 -- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.books (id, sku, title, author, number_pages, language) FROM stdin;
+COPY public.books (id, sku, title, author, pages, language, created_at, updated_at, deleted_at, is_deleted) FROM stdin;
+1	XXX789	Juego de tronos	Stephen Kingo	3100	Español	2022-04-12 14:15:43.724209	\N	\N	f
+3	XXX342	Inferno	Dan Brown	320	Ingles	2022-04-12 14:54:02.891555	2022-04-12 14:55:04.307627	\N	f
+2	XXX123	It	Stephen King	600	Español	2022-04-12 14:53:20.498277	2022-04-12 14:55:48.204159	\N	f
+4	XXX843	La Metamorfosis	Franz kafka	150	Español	2022-04-12 14:57:28.508469	\N	\N	f
 \.
 
 
@@ -77,7 +85,7 @@ COPY public.books (id, sku, title, author, number_pages, language) FROM stdin;
 -- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.books_id_seq', 1, false);
+SELECT pg_catalog.setval('public.books_id_seq', 4, true);
 
 
 --

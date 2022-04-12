@@ -10,9 +10,9 @@ public class DatabaseContext {
     // String db = "jdbc:postgresql://127.0.0.1:5432/library"; Usar este 
     // String user = <User Postgres>;
     // String password = <Contraseña Postgres>;
-    String db = "jdbc:postgresql://127.0.0.1:5432/Library";     
+    String db = "jdbc:postgresql://127.0.0.1:5433/library";     
     String user = "postgres";
-    String password = "admin";
+    String password = "123456";
 
     @Bean
     public Sql2o sql2o(){
