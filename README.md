@@ -38,8 +38,8 @@ Una vez realizada la configuración, dentro de la carpeta **backend** se debe ej
 Se agrego también una colección JSON para utilizar en postman y así testear los endpoints de la API Books,
 este debe ser importado dentro de la aplicación postman.
 
-Colección: Spring CRUD.postman_collection.json
-[Spring CRUD.postman_collection.json](../blob/master/LICENSE)
+Colección:
+[Spring CRUD.postman_collection.json](../master/LICENSE)
 [Import Postman Collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
 
 
