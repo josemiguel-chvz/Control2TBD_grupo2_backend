@@ -39,7 +39,9 @@ Se agrego también una colección JSON para utilizar en postman y así testear l
 este debe ser importado dentro de la aplicación postman.
 
 Colección:
-[Spring CRUD.postman_collection.json](../blob/development/Spring%20CRUD.postman_collection.json)
-[Import Postman Collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
+[Spring CRUD.postman_collection.json](../development/Spring%20CRUD.postman_collection.json)
+
+
+a[Import Postman Collection](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)
 
 
