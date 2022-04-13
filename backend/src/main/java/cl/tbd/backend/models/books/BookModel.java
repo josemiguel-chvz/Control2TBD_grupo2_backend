@@ -1,11 +1,23 @@
 package cl.tbd.backend.models.books;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 public class BookModel {
     private Integer id; 
+    @NotNull(message = "Debe indicar código SKU")
     private String sku;
+    @NotNull(message = "Debe indicar nombre del libro")
+    @Size(min=1, max=200, message = "El nombre del libro debe tener al menos un caracter")
     private String title;
+    @NotNull(message = "Debe indicar el autor del libro")
+    @Size(min=1, max=200, message = "El nombre del autor debe tener al menos un caracter")
     private String author;
+    @NotNull(message = "Debe indicar la cantidad de paginas")
+    @Min(value=2, message="El libro debe tener al menos 2 paginas")
     private Integer pages;
+    @NotNull(message = "Debe indicar el idioma")
+    @Size(min=1, max=200, message = "El idioma debe tener al menos un caracter")
     private String language;
     private String created_at;
     private String updated_at;

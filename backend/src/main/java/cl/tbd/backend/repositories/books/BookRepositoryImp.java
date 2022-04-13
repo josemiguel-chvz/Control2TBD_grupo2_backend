@@ -19,7 +19,6 @@ public class BookRepositoryImp implements BookRepository {
         final String query =  "INSERT INTO books(sku, title, author, pages, language, is_deleted, created_at) " +
                               "VALUES(:sku, :title, :author, :pages, :language, False, now());";
 
-        // Chequear si sku ya existe?
         try(Connection conn = sql2o.open()){
             return (int) conn.createQuery(query)
                                     .addParameter("sku", new_book.getSku())
@@ -74,7 +73,8 @@ public class BookRepositoryImp implements BookRepository {
         final String query = "SELECT id, sku, title, author, pages," +
                                 "language, created_at, updated_at, deleted_at, is_deleted " +
                                 "FROM books " +
-                                "WHERE is_deleted = False";
+                                "WHERE is_deleted = False "+
+                                "ORDER BY id asc";
 
         try(Connection conn = sql2o.open()) {
             return conn.createQuery(query)
@@ -84,7 +84,7 @@ public class BookRepositoryImp implements BookRepository {
 
     @Override
     public Integer delete(Integer book_id) {
-        final String query =  "UPDATE books SET is_deleted = true "+
+        final String query =  "UPDATE books SET is_deleted = true, deleted_at = now() "+
                               "WHERE id = :book_id";
 
         try(Connection conn = sql2o.open()) {
