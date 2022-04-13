@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import cl.tbd.backend.models.books.BookModel;
 import cl.tbd.backend.repositories.books.BookRepository;
+import cl.tbd.backend.exceptions.BadRequestException;
+// import cl.tbd.backend.exceptions.BadRequestException;
 import cl.tbd.backend.exceptions.NotFoundException;
 
 @Service
@@ -16,6 +18,27 @@ public class BookService {
     }
 
     public BookModel create(BookModel new_book){
+        
+        // if (new_book.getSku() == null) {
+        //     throw new BadRequestException("Debe indicar un código SKU");
+        // }
+
+        // if (new_book.getTitle() == null) {
+        //     throw new BadRequestException("Debe indicar un nombre");
+        // }
+
+        // if (new_book.getAuthor() == null) {
+        //     throw new BadRequestException("Debe indicar un autor");
+        // }
+
+        // if (new_book.getPages() == null) {
+        //     throw new BadRequestException("Debe indicar cantidad de paginas");
+        // }
+
+        // if (new_book.getLanguage() == null) {
+        //     throw new BadRequestException("Debe indicar un idioma");
+        // }
+
         Integer new_book_id = bookRepository.create(new_book);
         BookModel book = bookRepository.find(new_book_id);
 
@@ -45,7 +68,7 @@ public class BookService {
                 updated_book_data.setTitle(book.getTitle());
             }
 
-            if (updated_book_data.getAuthor() == null) {
+            if (updated_book_data.getAuthor() == null || updated_book_data.getAuthor().isEmpty()) {
                 updated_book_data.setAuthor(book.getAuthor());
             }
         
@@ -55,6 +78,27 @@ public class BookService {
 
             if (updated_book_data.getLanguage() == null) {
                 updated_book_data.setLanguage(book.getLanguage());
+            }
+            
+            // Si algún parametro no nulo no cumple con la validación se lanza excepción
+            if (updated_book_data.getSku().isEmpty()){
+                throw new BadRequestException("El código sku debe tener al menos un caracter");
+            }
+
+            if (updated_book_data.getTitle().isEmpty()){
+                throw new BadRequestException("El titulo debe tener al menos un caracter");
+            }
+
+            if (updated_book_data.getAuthor().isEmpty()){
+                throw new BadRequestException("El autor debe tener al menos un caracter");
+            }
+
+            if (updated_book_data.getPages() < 2){
+                throw new BadRequestException("El libro debe tener al menos 2 paginas");
+            }
+
+            if (updated_book_data.getLanguage().isEmpty()){
+                throw new BadRequestException("El idioma debe tener al menos un caracter");
             }
 
             Integer updated_book_id = bookRepository.update(book_id, updated_book_data);
